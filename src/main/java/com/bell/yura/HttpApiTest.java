@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class HttpApiTest {
     public static void main(String[] args) {
-
+        System.out.println(executePost("https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party", "6449013711"));
     }
     public static String executePost(String targetURL, String urlParameters) {
         HttpURLConnection connection = null;
@@ -19,17 +19,17 @@ public class HttpApiTest {
             URL url = new URL(targetURL);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", Integer.toString(urlParameters.getBytes().length));
-            connection.setRequestProperty("Content-Language", "en-US");
-
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+//            connection.setRequestProperty("Content-Length", Integer.toString(urlParameters.getBytes().length));
+//            connection.setRequestProperty("Content-Language", "en-US");
             connection.setUseCaches(false);
             connection.setDoOutput(true);
 
             //Send request
             DataOutputStream wr = new DataOutputStream (
                     connection.getOutputStream());
-            wr.writeBytes(urlParameters);
+            wr.writeBytes(String.format("{ \"query\": \"%s\" }", urlParameters));
             wr.close();
 
             //Get Response
