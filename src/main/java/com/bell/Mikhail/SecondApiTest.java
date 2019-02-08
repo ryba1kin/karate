@@ -11,10 +11,10 @@ public class SecondApiTest
 {
     public static void main(String[] args)
     {
-        System.out.println( executePost("https://suggestions.dadata.ru/suggestions/api/4_1/rs/detectAddressByIp", ""));
+        System.out.println( executePost("https://suggestions.dadata.ru/suggestions/api/4_1/rs/detectAddressByIp?ip=46.226.227.20"));
 
     }
-    public static String executePost(String targetURL, String urlParameters)
+    public static String executePost(String targetURL)
     {
         HttpURLConnection connection = null;
         //В Java предоставляется подкласс HttpURLConnection, производный от класса URLConnection и поддерживающий соединения по сетевому протоколу НТТР.
@@ -35,14 +35,16 @@ public class SecondApiTest
             connection.setUseCaches(false);
             connection.setDoOutput(true);
 
+
+
             //Отправляемые параметры
             //Класс DataOutputStream представляет поток вывода и предназначен для записи данных примитивных типов, таких, как int, double и т.д.
             // Для записи каждого из примитивных типов предназначен свой метод
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream());
+            //DataOutputStream wr = new DataOutputStream(
+            //       connection.getOutputStream());
             //%s- вместо будет вставлено urlParameters
-            wr.writeBytes(String.format( "{(\"ip\":\"%s\"}", urlParameters));
-            wr.close();
+            //wr.writeBytes(String.format( "{(\"ip\"=\"%s\"}"));
+            //wr.close();
 
             //Базовый класс InputStream представляет классы, которые получают данные из различных источников:
             //массив байтов
@@ -51,9 +53,11 @@ public class SecondApiTest
             //канал (pipe): данные помещаются с одного конца и извлекаются с другого
             //последовательность различных потоков, которые можно объединить в одном потоке
             //другие источники (например, подключение к интернету)
+            //InputStream - поток, BufferedReader - буферизирует поток, InputStreamReader - считывает поток
+            //
             InputStream is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+            StringBuffer response = new StringBuffer(); // or StringBuffer if Java version 5+
             String line;
             while ((line = rd.readLine()) != null) {
                 response.append(line);
