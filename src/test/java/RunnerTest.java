@@ -3,8 +3,6 @@ import com.intuit.karate.junit4.Karate;
 import org.junit.runner.RunWith;
 
 @RunWith(Karate.class)
-/*
-@KarateOptions(features = "classpath:resources")
-*/
+@KarateOptions(features = "classpath:second.feature")
 public class RunnerTest {
 }

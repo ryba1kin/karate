@@ -1,9 +1,9 @@
-Feature: get company on INN
+Feature: first try
 
   Background:
     * url 'https://suggestions.dadata.ru'
 
-  Scenario: first try
+  Scenario: get org by INN
     Given path 'suggestions/api/4_1/rs/findById/party'
     And header Content-Type = "application/json"
     And header Accept = "application/json"
